@@ -1,7 +1,8 @@
 const userModel = require('../models/user.model');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
+const BlacklistModel = require('../models/blacklist.model');
 
 /**
  * @route POST /api/auth/register
@@ -72,7 +73,29 @@ const loginUserController = async (req, res) => {
     }catch(error){console.log(error)}
 }
 
+/**
+ * @route POST /api/auth/logout
+ * @desc Logout a user, expects token in the request body
+ * @access Public
+ */
+const logoutUserController = async (req, res) => {
+    try {
+        const { token } = req.cookies; // Assuming the token is sent in the cookie
+        if (!token) {
+            return res.status(400).json({ message: 'Token is required' });
+        }
+
+        await BlacklistModel.create({ token });
+        res.clearCookie('token');
+        res.status(200).json({ message: 'User logged out successfully' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
 module.exports = {
     registerUserController,
-    loginUserController
+    loginUserController,
+    logoutUserController
 };

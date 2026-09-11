@@ -94,8 +94,35 @@ const logoutUserController = async (req, res) => {
     }
 };
 
+/**
+ * @route GET /api/auth/profile
+ * @description Get the profile of the logged-in user
+ * @access Private
+ */
+const getMeUserController = async (req, res) => {
+    try {
+        const user = await userModel.findById(req.user.id).select('-password');
+        if (!user) {
+            return res.status(404).json({ message: 'User not found' });
+        }
+        return res.status(200).json({
+            message : 'User profile fetched successfully',
+            user : {
+                user_id: user._id,
+                username: user.username,
+                email: user.email
+            }}
+        )
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'Internal server error' });
+    }
+};
+
+
 module.exports = {
     registerUserController,
     loginUserController,
-    logoutUserController
+    logoutUserController,
+    getMeUserController
 };

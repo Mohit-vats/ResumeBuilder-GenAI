@@ -1,13 +1,11 @@
-
+import React from 'react'
+import router from './app.routes.jsx'
+import { RouterProvider } from 'react-router-dom'
 
 
 function App() {
   return (
-    <div className="min-h-screen bg-blue-900 flex items-center justify-center">
-      <h1 className="text-5xl font-bold text-black">
-        Resume Builder
-      </h1>
-    </div>
+    <RouterProvider router={router} />
   )
 }
 

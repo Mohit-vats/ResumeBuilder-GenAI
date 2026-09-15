@@ -1,9 +1,31 @@
 import {Link, useNavigate} from "react-router-dom";
+import {useState} from "react";
+import { authUser } from "../hooks/useAuth";
 
 import Button from "../components/Button";
 import InputField from "../components/InputField";
 
 const register = () => {
+
+  const navigate = useNavigate();
+  const {loading , handleRegister} = authUser();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [registerError, setRegisterError] = useState(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setRegisterError(null);
+    const data = await handleRegister(username, email, password);
+    console.log("REGISTER RESPONSE:", data);
+    if (data.user){
+      navigate("/login");
+    }else {
+      if (data.message === "Username already exists") setRegisterError("Username");
+      else if (data.message === "Email already registered") setRegisterError("Email");
+    }
+  }
   return (
      <div className="min-h-screen bg-gray-100 px-4 flex items-center justify-center">
 
@@ -21,25 +43,38 @@ const register = () => {
         </div>
 
         {/* Form */}
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSubmit}>
 
           <InputField
+            onChange={(e) => setUsername(e.target.value)}
             label="Username"
             type="text"
             name="username"
             placeholder="Enter your username"
             required
           />
+          {registerError === "Username" &&( <div className="mb-8 text-center">
+            <p className="mt-2 text-l text-red-500">
+              Username already taken.
+            </p>
+          </div>)}
 
           <InputField
+            onChange={(e) => setEmail(e.target.value)}
             label="Email"
             type="email"
             name="email"
             placeholder="you@example.com"
             required
           />
+          {registerError === "Email" &&( <div className="mb-8 text-center">
+            <p className="mt-2 text-l text-red-500">
+              Email alrwady registered.
+            </p>
+          </div>)}
 
           <InputField
+            onChange={(e) => setPassword(e.target.value)}
             label="Password"
             type="password"
             name="password"
@@ -57,7 +92,7 @@ const register = () => {
           </div>
 
           <Button type="submit">
-            Login
+            Register
           </Button>
 
         </form>

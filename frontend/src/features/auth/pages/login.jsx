@@ -2,13 +2,41 @@ import {Link, useNavigate} from "react-router-dom";
 
 import Button from "../components/Button";
 import InputField from "../components/InputField";
+import { authUser } from "../hooks/useAuth";
+import { useState } from "react";
 
 const Login = () => {
+  const navigate = useNavigate();
+  const {loading , handleLogin} = authUser();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loginError, setLoginError] = useState(false);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoginError(false);
+    const user = await handleLogin(email, password);
+    if (user){
+      navigate("/");
+    }else{
+      setLoginError(true);
+    }
+
+  }
+
+  if(loading){
+    return <div>Loading...</div>
+  }
+
   return (
     <div className="min-h-screen bg-gray-100 px-4 flex items-center justify-center">
 
       <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
-
+        {loginError &&( <div className="mb-8 text-center">
+          <p className="mt-2 text-l text-red-500">
+            Invalid email or password
+          </p>
+        </div>)}
         {/* Header */}
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold text-gray-900">
@@ -21,9 +49,10 @@ const Login = () => {
         </div>
 
         {/* Form */}
-        <form className="space-y-5">
+        <form className="space-y-5" onSubmit={handleSubmit}>
 
           <InputField
+            onChange={(e) => setEmail(e.target.value)}
             label="Email"
             type="email"
             name="email"
@@ -32,6 +61,7 @@ const Login = () => {
           />
 
           <InputField
+            onChange={(e) => setPassword(e.target.value)}
             label="Password"
             type="password"
             name="password"

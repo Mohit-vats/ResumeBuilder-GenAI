@@ -1,6 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import Login from "./features/auth/pages/login";
 import Register from "./features/auth/pages/register";
+import Protected from "./features/auth/components/Protected";
 
 
 const router = createBrowserRouter([
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
   {
     path: "/register",
     element: <Register />
+  },
+  {
+    path: "/",
+    element: <Protected><h1>Welcome to Resume Builder</h1></Protected>
   }
 ]);
 

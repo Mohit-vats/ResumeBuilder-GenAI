@@ -1,7 +1,8 @@
 import {createBrowserRouter} from "react-router-dom";
 import Login from "./features/auth/pages/login";
 import Register from "./features/auth/pages/register";
-import Protected from "./features/auth/components/Protected";
+import Protected from "./components/Protected";
+import Home from "./features/ai/pages/home";
 
 
 const router = createBrowserRouter([
@@ -15,7 +16,9 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Protected><h1>Welcome to Resume Builder</h1></Protected>
+    element: <Protected>
+      <Home/>
+    </Protected>
   }
 ]);
 

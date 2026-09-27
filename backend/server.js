@@ -5,8 +5,8 @@ const {jobDescription,resume,selfDescription} = require("./src/services/temp") /
 
 connectDB();
 
-const generateReport = require("./src/services/ai.services")
-generateReport(jobDescription,resume,selfDescription);
+// const generateReport = require("./src/services/ai.services")
+// generateReport(jobDescription,resume,selfDescription);
 
 
 const PORT = process.env.PORT || 3000;

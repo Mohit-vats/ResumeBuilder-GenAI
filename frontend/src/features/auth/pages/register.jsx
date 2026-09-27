@@ -2,8 +2,8 @@ import {Link, useNavigate} from "react-router-dom";
 import {useState} from "react";
 import { authUser } from "../hooks/useAuth";
 
-import Button from "../components/Button";
-import InputField from "../components/InputField";
+import Button from "../../../components/Button";
+import InputField from "../../../components/InputField";
 
 const register = () => {
 

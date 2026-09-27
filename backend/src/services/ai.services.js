@@ -278,6 +278,3 @@ const generateReport = async (jobDescription,resume,selfDescription) => {
 }
 
 module.exports = generateReport
-
-
-

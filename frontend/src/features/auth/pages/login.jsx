@@ -1,7 +1,7 @@
 import {Link, useNavigate} from "react-router-dom";
 
-import Button from "../components/Button";
-import InputField from "../components/InputField";
+import Button from "../../../components/Button";
+import InputField from "../../../components/InputField";
 import { authUser } from "../hooks/useAuth";
 import { useState } from "react";
 

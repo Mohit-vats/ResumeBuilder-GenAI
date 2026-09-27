@@ -2,6 +2,7 @@ export default function Button({
   children,
   type = "button",
   variant = "primary",
+  href,
   className = "",
   ...props
 }) {
@@ -13,8 +14,18 @@ export default function Button({
     ghost: "border border-[#232A36] bg-transparent text-[#E7E9EC] hover:border-[#3A4453]",
   };
 
+  const classes = `${base} ${variants[variant]} ${className}`;
+
+  if (href) {
+    return (
+      <a href={href} className={classes} {...props}>
+        {children}
+      </a>
+    );
+  }
+
   return (
-    <button type={type} className={`${base} ${variants[variant]} ${className}`} {...props}>
+    <button type={type} className={classes} {...props}>
       {children}
     </button>
   );

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Hero from "../../../components/Hero";
 import FeatureHighlights from "../../../components/FeatureHighlights";
@@ -6,22 +5,18 @@ import ReviewForm from "../../../components/ReviewForm";
 import Footer from "../../../components/Footer";
 
 import {authUser} from "../../auth/hooks/useAuth";
+import useInterview from "../hooks/useInterview";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
-  // TODO: replace with real auth state, e.g. from context, a cookie/session
-  // check, or your auth provider's hook (useUser(), useSession(), etc.)
-
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user] = useState({ name: "Jordan" });
-
-  const handleLogout = () => {
-    // TODO: call your sign-out endpoint / clear the session
-    setIsAuthenticated(false);
-  };
+  const { user, handleLogout } = authUser();
+  const { generateInterviewReport } = useInterview();
+  const navigate = useNavigate();
+  const isAuthenticated = Boolean(user);
 
   const handleSubmit = async ({ jobDescription, resume, selfDescription }) => {
-    // TODO: wire this up to your comparison API
-    console.log({ jobDescription, resume, selfDescription });
+    await generateInterviewReport({ jobDescription, resume, selfDescription });
+    navigate("/report");
   };
 
   return (

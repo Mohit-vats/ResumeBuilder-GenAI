@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Navbar from "../../../components/Navbar";
 import Footer from "../../../components/Footer";
 import MatchScoreCard from "../../../components/MatchScoreCard";
@@ -6,17 +5,13 @@ import QuestionSection from "../../../components/QuestionSection";
 import SkillGapList from "../../../components/SkillGapList";
 import PreparationTimeline from "../../../components/PreparationTimeline";
 import EmptyReport from "../../../components/EmptyReport";
+import { authUser } from "../../auth/hooks/useAuth";
+import useInterview from "../hooks/useInterview";
 
-// `report` should match `interviewReportJsonSchema`:
-// { matchScore, technicalQuestions, behavioralQuestions, skillGaps, preparationPlan }
-//
-// TODO: wire this up to the actual response from the home page — e.g. React
-// Router's `location.state`, a global store/context, or a fetch by report id
-// from the URL (`/report/:id`). Left as a prop here so this page stays
-// framework-agnostic.
-export default function Report({ report = null }) {
-  // TODO: replace with real auth state shared across pages (context/provider)
-  const [isAuthenticated] = useState(false);
+export default function Report() {
+  const { user } = authUser();
+  const { report } = useInterview();
+  const isAuthenticated = Boolean(user);
 
   if (!report) {
     return (

@@ -17,7 +17,7 @@ const generateInterviewReport = async (req,res) => {
 
         const report = await generateReport(jobDescription,resume,selfDescription);
         const interviewReport = await interviewReportModel.create({
-            userid: req.user.id,
+            user: req.user.id,
             resume,jobDescription,selfDescription,
             ...report
         })
@@ -26,10 +26,49 @@ const generateInterviewReport = async (req,res) => {
             message : "Interview report generated succesfully",interviewReport
         })
     }catch(err){
-        console.log(err)
+        console.error(err);
+        return res.status(500).json({ message: "Failed to generate interview report" });
+    }
+}
+
+const getAllReports = async (req, res) => {
+    try {
+        const reports = await interviewReportModel
+            .find({ user: req.user.id })
+            .sort({ createdAt: -1 });
+
+        return res.status(200).json({
+            message: "Interview reports fetched successfully",
+            reports
+        });
+    } catch (err) {
+        console.error(err);
+        return res.status(500).json({ message: "Failed to fetch interview reports" });
+    }
+};
+
+const getReportByID = async (req,res) =>{
+    try{
+        const {interviewID} = req.params;
+
+        const interviewReport = await interviewReportModel.findById(interviewID);
+
+        if(!interviewReport){
+            return res.status(404).json({
+                message : "Requested report not found"
+            })
+        };
+
+        return res.status(200).json({
+            message : "Interview report fetched succesfully",interviewReport
+        })
+    }catch(err){
+        console.log(err);
     }
 }
 
 module.exports = {
-    generateInterviewReport
+    generateInterviewReport,
+    getAllReports,
+    getReportByID
 }

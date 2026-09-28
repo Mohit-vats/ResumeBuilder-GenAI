@@ -16,6 +16,11 @@ const interviewReportJsonSchema = {
       description:
         "Match score from 0 to 100 based on how well the candidate matches the job description."
     },
+    title: {
+      type: "string",
+      description:
+        " Title of the job  as per job description."
+    },
 
     technicalQuestions: {
       type: "array",
@@ -119,6 +124,7 @@ const interviewReportJsonSchema = {
 
   required: [
     "matchScore",
+    "title",
     "technicalQuestions",
     "behavioralQuestions",
     "skillGaps",
@@ -159,7 +165,14 @@ const generateReport = async (jobDescription,resume,selfDescription) => {
 
     Do not give a high score simply because the candidate has many technologies listed. Consider the importance of each requirement and the strength of the evidence.
 
-    2. TECHNICAL QUESTIONS
+    2. TITLE
+
+    Generate the title of the job as per the given job description.
+    Keep the title generic and try not to add any company name.
+    Striclty follow job description for the title.
+    if any job title or similar header is given in the job description , give it very high weightage and only change if it very very off the description.
+    
+    3. TECHNICAL QUESTIONS
 
     Generate exactly 5 technical interview questions relevant to this job.
 
@@ -178,7 +191,7 @@ const generateReport = async (jobDescription,resume,selfDescription) => {
     - If the candidate has no demonstrated experience with the technology, answer conceptually or use wording such as "I would..." rather than "I have..." or "I use...".
     - Do not invent specific implementations, project details, metrics, or outcomes.
 
-    3. BEHAVIORAL QUESTIONS
+    4. BEHAVIORAL QUESTIONS
 
     Generate exactly 3 behavioral interview questions relevant to this role.
 
@@ -215,7 +228,7 @@ const generateReport = async (jobDescription,resume,selfDescription) => {
 
     unless the provided information explicitly describes that event.
 
-    4. SKILL GAPS
+    5. SKILL GAPS
 
     Identify important skills explicitly required or preferred by the job description that are missing or weakly demonstrated in the candidate's background.
 
@@ -232,7 +245,7 @@ const generateReport = async (jobDescription,resume,selfDescription) => {
 
     Do not introduce unrelated technologies or skills.
 
-    5. PREPARATION PLAN
+    6. PREPARATION PLAN
 
     Generate exactly 5 days of interview preparation.
 
@@ -274,7 +287,7 @@ const generateReport = async (jobDescription,resume,selfDescription) => {
         },
     });
     const interviewReport = interviewReportSchema.parse(JSON.parse(interaction.output_text));
-    console.log(JSON.stringify(interviewReport, null, 2));
+    return interviewReport;
 }
 
 module.exports = generateReport

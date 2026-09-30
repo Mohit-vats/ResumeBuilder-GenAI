@@ -378,6 +378,11 @@ const GenerateResumePdf = async (resume, jobDescription, selfDescription = "") =
             format: "A4",
             printBackground: true,
             preferCSSPageSize: true,
+            margin: {
+                right: "15mm",
+                bottom: "15mm",
+                left: "15mm",
+            },
         });
         return Buffer.from(pdf);
     } finally {

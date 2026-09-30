@@ -28,3 +28,14 @@ export const getReportByID = async (interviewID) => {
     const response = await interview_api.get(`/report/${interviewID}`);
     return response.data;
 }
+
+export const getUpdatedPDF = async (interviewID) => {
+    const response = await interview_api.get(
+        `/report/pdf/${interviewID}`,
+        {
+            responseType: "blob",
+        }
+    );
+
+    return response.data;
+};

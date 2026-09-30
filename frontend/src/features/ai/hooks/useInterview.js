@@ -3,6 +3,7 @@ import {
     generateReport as createReport,
     getAllReports as fetchAllReports,
     getReportByID as fetchReportByID,
+    getUpdatedPDF
 } from "../services/interview.api";
 import { interviewContext } from "../interview.context";
 
@@ -49,12 +50,28 @@ const useInterview = () => {
         setLoading(true);
         try {
             const response = await fetchReportByID(interviewID);
-            console.log(response.interviewReport);
             setReport(response.interviewReport);
             return response.interviewReport;
         } finally {
             setLoading(false);
         }
+    };
+
+    const generateUpdatedResumePDF = async (interviewID) => {
+        
+        const pdfBlob = await getUpdatedPDF(interviewID);
+
+        const url = URL.createObjectURL(pdfBlob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "resume.pdf";
+
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+
+        URL.revokeObjectURL(url);
     };
 
     return {
@@ -64,6 +81,7 @@ const useInterview = () => {
         generateInterviewReport,
         getInterviewReports,
         getInterviewReportByID,
+        generateUpdatedResumePDF
     };
 };
 

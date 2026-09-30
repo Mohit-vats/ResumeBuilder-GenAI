@@ -2,6 +2,7 @@ import Navbar from "../../../components/Navbar";
 import Hero from "../../../components/Hero";
 import FeatureHighlights from "../../../components/FeatureHighlights";
 import ReviewForm from "../../../components/ReviewForm";
+import Reports from "../../../components/Reports";
 import Footer from "../../../components/Footer";
 
 import {authUser} from "../../auth/hooks/useAuth";
@@ -27,7 +28,9 @@ export default function Home() {
       <main>
         <Hero />
         <FeatureHighlights />
+        
         <ReviewForm onSubmit={handleSubmit} />
+        <Reports />
       </main>
       <Footer />
     </div>

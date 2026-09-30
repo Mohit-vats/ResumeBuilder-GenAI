@@ -15,8 +15,10 @@ export default function Home() {
   const isAuthenticated = Boolean(user);
 
   const handleSubmit = async ({ jobDescription, resume, selfDescription }) => {
-    await generateInterviewReport({ jobDescription, resume, selfDescription });
-    navigate("/report");
+    
+    const report  = await generateInterviewReport({ jobDescription, resume, selfDescription });
+    // console.log(report);
+    navigate(`/report/${report._id}`);
   };
 
   return (

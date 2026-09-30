@@ -21,17 +21,17 @@ const router = createBrowserRouter([
     </Protected>
   },
   {
-    path: "/report",
+    path: "/report/:interviewID",
     element: <Protected>
       <Report />
     </Protected>
-  },
-  {
-    path: "/interview",
-    element : <Protected>
-      <Report/>
-    </Protected>
   }
+  // {
+  //   path: "/interview",
+  //   element : <Protected>
+  //     <Report/>
+  //   </Protected>
+  // }
 ]);
 
 

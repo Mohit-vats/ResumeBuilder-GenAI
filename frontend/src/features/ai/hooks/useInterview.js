@@ -6,6 +6,7 @@ import {
 } from "../services/interview.api";
 import { interviewContext } from "../interview.context";
 
+
 const useInterview = () => {
     const context = useContext(interviewContext);
 
@@ -16,6 +17,7 @@ const useInterview = () => {
     const { loading, setLoading, report, setReport, reports, setReports } = context;
 
     const generateInterviewReport = async ({ jobDescription, selfDescription, resume }) => {
+        setReport(null);
         setLoading(true);
         try {
             const response = await createReport({
@@ -25,6 +27,8 @@ const useInterview = () => {
             });
             setReport(response.interviewReport);
             return response.interviewReport;
+        }catch(err){
+            console.log(err)
         } finally {
             setLoading(false);
         }
@@ -45,6 +49,7 @@ const useInterview = () => {
         setLoading(true);
         try {
             const response = await fetchReportByID(interviewID);
+            console.log(response.interviewReport);
             setReport(response.interviewReport);
             return response.interviewReport;
         } finally {

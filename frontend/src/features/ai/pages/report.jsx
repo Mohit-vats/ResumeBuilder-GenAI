@@ -7,11 +7,35 @@ import PreparationTimeline from "../../../components/PreparationTimeline";
 import EmptyReport from "../../../components/EmptyReport";
 import { authUser } from "../../auth/hooks/useAuth";
 import useInterview from "../hooks/useInterview";
+import Loading from "../../../components/Loading"
+
+import { useEffect } from "react";
+import {useParams} from "react-router-dom";
 
 export default function Report() {
   const { user } = authUser();
-  const { report } = useInterview();
+  const {interviewID} =useParams();
+  const { report, loading, getInterviewReportByID } = useInterview();
   const isAuthenticated = Boolean(user);
+
+  useEffect(()=>{
+    console.log("this shiiiit ")
+    getInterviewReportByID(interviewID)
+  },[])
+
+  if (loading) {
+    return (
+      // <div className="min-h-screen bg-[#0B0E14] font-sans antialiased">
+      //   <Navbar isAuthenticated={isAuthenticated} />
+      //   <main className="mx-auto max-w-2xl px-6 pt-16 text-[#E7E9EC]">
+      //     <p>Loading your report</p>
+      //   </main>
+      //   <Footer />
+      // </div>
+
+      <Loading/>
+    );
+  }
 
   if (!report) {
     return (

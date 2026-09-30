@@ -27,17 +27,17 @@ const register = () => {
     }
   }
   return (
-     <div className="min-h-screen bg-gray-100 px-4 flex items-center justify-center">
+     <div className="flex min-h-screen items-center justify-center bg-[#0B0E14] px-4 py-12 font-sans antialiased">
 
-      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-lg">
+      <div className="w-full max-w-md rounded-lg border border-[#1B212B] bg-[#0F131A]/80 p-8 shadow-2xl shadow-black/20 sm:p-10">
 
         {/* Header */}
         <div className="mb-8 text-center">
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="font-serif text-3xl text-[#E7E9EC]">
             Welcome New User
           </h1>
 
-          <p className="mt-2 text-sm text-gray-500">
+          <p className="mt-2 text-sm leading-relaxed text-[#8B94A3]">
             Register to start building your resume
           </p>
         </div>
@@ -54,7 +54,7 @@ const register = () => {
             required
           />
           {registerError === "Username" &&( <div className="mb-8 text-center">
-            <p className="mt-2 text-l text-red-500">
+            <p className="mt-2 text-sm text-rose-400">
               Username already taken.
             </p>
           </div>)}
@@ -68,7 +68,7 @@ const register = () => {
             required
           />
           {registerError === "Email" &&( <div className="mb-8 text-center">
-            <p className="mt-2 text-l text-red-500">
+            <p className="mt-2 text-sm text-rose-400">
               Email alrwady registered.
             </p>
           </div>)}
@@ -85,7 +85,7 @@ const register = () => {
           <div className="flex justify-end">
             <button
               type="button"
-              className="text-sm font-medium text-blue-600 hover:text-blue-700"
+              className="text-sm font-medium text-[#E8AA3C] transition-colors hover:text-[#F0B959]"
             >
               Forgot password?
             </button>
@@ -98,11 +98,11 @@ const register = () => {
         </form>
 
         {/* Register */}
-        <p className="mt-8 text-center text-sm text-gray-500">
+        <p className="mt-8 text-center text-sm text-[#8B94A3]">
           Already have an account?{" "}
           <Link
             to={"/login"}
-            className="font-semibold text-blue-600 hover:text-blue-700"
+            className="font-semibold text-[#E8AA3C] transition-colors hover:text-[#F0B959]"
           >
             Log in
           </Link>

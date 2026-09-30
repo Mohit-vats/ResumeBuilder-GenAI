@@ -12,7 +12,7 @@ const InputField = ({
     <div>
       <label
         htmlFor={id || name}
-        className="mb-2 block text-sm font-medium text-gray-700"
+        className="mb-2 block text-sm font-medium text-[#B7BFCC]"
       >
         {label}
       </label>
@@ -25,9 +25,9 @@ const InputField = ({
         value={value}
         onChange={onChange}
         required={required}
-        className="w-full rounded-lg border border-gray-300 px-4 py-3
-          text-gray-900 placeholder-gray-400 outline-none transition
-          focus:border-blue-500 focus:ring-2 focus:ring-blue-100"
+        className="w-full rounded-md border border-[#252C37] bg-[#0B0E14] px-4 py-3
+          text-[#E7E9EC] placeholder-[#626B79] outline-none transition
+          focus:border-[#E8AA3C] focus:ring-2 focus:ring-[#E8AA3C]/15"
       />
     </div>
   );

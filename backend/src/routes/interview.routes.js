@@ -24,9 +24,16 @@ interviewRouter.get("/report/:interviewID",authMiddleware.authUser ,interviewCon
 
 /**
  * @route GET interview/
- * @description gets element by id
+ * @description gets sll element by id
  * @access Private
  */
 interviewRouter.get("/report",authMiddleware.authUser ,interviewControllers.getAllReports)
+
+/**
+ * @route GET /report/pdf/:interviewID
+ * @description gives updated pdf
+ * @access Private
+ */
+interviewRouter.get("/report/pdf/:interviewID",authMiddleware.authUser ,interviewControllers.getUpdatedPDF)
 
 module.exports = interviewRouter

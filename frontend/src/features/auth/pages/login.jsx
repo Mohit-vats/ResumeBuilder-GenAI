@@ -2,6 +2,7 @@ import {Link, useNavigate} from "react-router-dom";
 
 import Button from "../../../components/Button";
 import InputField from "../../../components/InputField";
+import Loading from "../../../components/Loading";
 import { authUser } from "../hooks/useAuth";
 import { useState } from "react";
 
@@ -25,7 +26,7 @@ const Login = () => {
   }
 
   if(loading){
-    return <div className="flex min-h-screen items-center justify-center bg-[#0B0E14] text-sm text-[#8B94A3]">Loading...</div>
+    return <Loading title="Loading your account" />
   }
 
   return (

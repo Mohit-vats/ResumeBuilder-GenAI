@@ -1,11 +1,12 @@
 import {authUser} from "../features/auth/hooks/useAuth";
 import {Navigate} from "react-router-dom";
+import Loading from "./Loading";
 
 const Protected = ({children}) => {
   const {loading,user} = authUser();
 
   if(loading){
-    return <div>Loading...</div>
+    return <Loading title="Checking your session" />
   }
 
   if(!user){

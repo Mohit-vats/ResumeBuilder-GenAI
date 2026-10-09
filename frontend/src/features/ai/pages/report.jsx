@@ -38,7 +38,10 @@ export default function Report() {
 
   if (loading) {
     return (
-      <Loading/>
+      <Loading
+        title="Loading your interview report"
+        description="Please wait while we prepare your interview report."
+      />
     );
   }
 

@@ -4,6 +4,7 @@ import { authUser } from "../hooks/useAuth";
 
 import Button from "../../../components/Button";
 import InputField from "../../../components/InputField";
+import Loading from "../../../components/Loading";
 
 const register = () => {
 
@@ -26,6 +27,11 @@ const register = () => {
       else if (data.message === "Email already registered") setRegisterError("Email");
     }
   }
+
+  if (loading) {
+    return <Loading title="Loading registration" description="Please wait while we prepare your account." />;
+  }
+
   return (
      <div className="flex min-h-screen items-center justify-center bg-[#0B0E14] px-4 py-12 font-sans antialiased">
 

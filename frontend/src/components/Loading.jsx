@@ -1,25 +1,33 @@
-const Loading = () => {
+const Loading = ({
+  title = "Loading",
+  description,
+  fullScreen = true,
+  className = "",
+}) => {
+  const Container = fullScreen ? "main" : "div";
+
   return (
-    <main className="mx-auto max-w-2xl px-6 pt-20 text-center text-[#E7E9EC]">
-      <div className="mx-auto h-12 w-12 animate-spin rounded-full border-4 border-[#2A303B] border-t-blue-500" />
+    <Container
+      role="status"
+      aria-live="polite"
+      aria-busy="true"
+      className={`${fullScreen ? "flex min-h-screen items-center justify-center bg-[#0B0E14] px-6 py-12" : "py-12"} ${className}`.trim()}
+    >
+      <div className="mx-auto max-w-2xl text-center text-[#E7E9EC]">
+        <div
+          aria-hidden="true"
+          className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-[#2A303B] border-t-blue-500"
+        />
 
-      <h1 className="mt-8 font-serif text-3xl">
-        Generating your interview report
-      </h1>
+        <h1 className="mt-6 font-serif text-2xl sm:text-3xl">{title}</h1>
 
-      <p className="mt-3 text-sm leading-relaxed text-[#8B94A3]">
-        We're analyzing your resume against the job description and
-        preparing personalized interview questions and recommendations.
-      </p>
-
-      <div className="mx-auto mt-8 h-2 max-w-sm overflow-hidden rounded-full bg-[#1A1F28]">
-        <div className="h-full w-1/2 animate-pulse rounded-full bg-blue-500" />
+        {description && (
+          <p className="mt-3 text-sm leading-relaxed text-[#8B94A3]">
+            {description}
+          </p>
+        )}
       </div>
-
-      <p className="mt-4 text-xs text-[#626B79]">
-        This may take a little while.
-      </p>
-    </main>
+    </Container>
   );
 };
 
